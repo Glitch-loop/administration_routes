@@ -8,7 +8,11 @@ Este es un programa para la administración de rutas de un negocio, supongamos q
 
 ## Instalación 🛠
 1 - Creación de la base de datos, los diagramas esta en la carpeta diagramas, el archivo se llama "Base de datos".
+
+
 2 - Instalacion de paquetes.
+
+
 3 - Configuración de archivo "config.js"... Aunque aun no esta terminado, "0" significa ambiente de desarrollo, por lo que ese no es necesario cambiar.
 
 
