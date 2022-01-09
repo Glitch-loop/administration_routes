@@ -1,0 +1,84 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/addDriverView">Agregar conductores</a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <form action="/components/Routes/searchDriver" method="post">
+            <div class="row">
+                <div class="col">
+                    <p>Activa la casilla para ver conductores inactivos</p>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                    <%if (buttonBox==0){%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedDriver" value="0">
+                                    <%}else{%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedDriver" value="1" checked="">
+                                    <%}%>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+<%if(message!=undefined){%>
+    <div class="contianer mt-4 ml-4">
+        <p><%=message%></p>
+    </div>
+<%}%>
+
+<%if(data[0]!=undefined){%>
+<div class="container-md-screen mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE DEL CONDUCTOR</th>
+                <th>DIRECCION</th>
+                <th>NUMERO</th>
+                <th>COMISION</th>
+                <th>SALARIO</th>
+                <th>MODIFICAR</th>
+                <th>ELIMINAR</th>
+                <%if (buttonBox!=0){%>
+                    <th>REACTIVAR CLIENTE</th>                
+                <%}%>
+            </tr>
+        </thead>
+        <tbody>
+            <%for(var i=0; i < data.length; i++){%>
+            <tr>
+                <td><%= data[i].driver.idDriver%></td>
+                <td><%= data[i].driver.nameDriver%></td>
+                <td><%= data[i].driver.adress%></td>
+                <td><%= data[i].driver.phoneNumber%></td>
+                <td><%= data[i].driver.comission%></td>
+                <td><%= data[i].driver.salary%></td>
+                <%if (data[i].driver.driverStatus==1){%>
+                    <td><a href="/components/Routes/modifyDriverView/update/<%= data[i].driver.idDriver%>" class="btn btn-primary btn-sm">MODIFICAR</a></td>
+                    <td><a href="/components/Routes/modifyDriverView/desactivate/<%= data[i].driver.idDriver%>" class="btn btn-danger btn-sm">ELIMINAR</a></td>
+                    <td></td>
+                <%}else{%>
+                    <td></td>
+                    <td></td>
+                    <td><a href="/components/Routes/modifyDriverView/reactivate/<%= data[i].driver.idDriver%>" class=" btn btn-success btn-sm">REACTIVAR</a></td>
+                <%}%>
+            </tr>
+            <%}%>
+        </tbody>
+    </table>
+</div>
+<%}%>
+<%- include ('../../partials/_footer') %>

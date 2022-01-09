@@ -1,0 +1,68 @@
+<%- include ('../../partials/_header') %>
+<!-- Menu para el manejo de productos y familias -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <div class="">
+                <a href="/components/Factory/products">Menu de productos</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="col col-lg-5 mt-3">
+    <h6>Este es el orden actual en como apareceran los productos en la ruta</h6>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Nombre del producto</td>
+                <td>Posicion</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%for(var i=0; i < products.length; i++){%>
+                <tr>
+                    <td><%=products[i].product.nameProduct%></td>
+                    <%if(products[i].product.positionInRoute==null){%>
+                        <td>Actualmente no tiene una posicion</td>
+                    <%}else{%>
+                        <td><%=products[i].product.positionInRoute%></td>
+                    <%}%>
+                </tr>          
+            <%}%>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <p>Pon en los espacios, el lugar que quieras que aparesca el producto en las tablas de las rutas</p>
+            <form action="/components/Factory/products/productsInRoute" method="post">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>Nombre del producto</td>
+                            <td>Posicion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for(var i=0; i < products.length; i++){%>
+                            <tr>
+                                <td><%=products[i].product.nameProduct%></td>
+                                <td><input type="number" min="1" name="<%= products[i].product.idProduct%>"></td>
+                            </tr>          
+                        <%}%>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </form>
+            <%if (message!=undefined){%>
+                <div class="mt-3 ml-2">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

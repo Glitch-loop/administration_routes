@@ -1,0 +1,36 @@
+<%- include ('../../partials/_header') %>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <h5>Informacion actual de este cliente</h5>
+            <p>ID unico de familia de productos: <%= productFamily.familyProduct.idProductsFamily%></p>
+            <p>Nombre de familia de productos: <%= productFamily.familyProduct.nameFamily%></p>
+            <hr>
+            <form action="/components/Factory/family/modify/update" method="post">
+                <div class="col col-lg-6">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre de la familia*</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="idProductsFamily" class="form-control" value=" <%= productFamily.familyProduct.idProductsFamily%>">
+                                    <div class="form-group">
+                                        <input type="text" name="nameFamily" class="form-control">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

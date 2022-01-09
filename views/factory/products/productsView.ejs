@@ -1,0 +1,133 @@
+<%- include ('../../partials/_header') %>
+    <!-- Menu para el manejo de productos y familias -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+        <div class="container">
+            <div class="">
+                <div class="">
+                    <a href="/components/Factory/">Menu fabrica</a>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <a href="/components/Factory/products/AddNewProduct">Agregar productos</a>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <a href="/components/Factory/products/productsInRoute">Productos en ruta</a>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <a href="/components/Factory/family">Agregar familia</a>
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <a href="/components/Factory/family/modify">Modificar familia</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Busqueda por filtros -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+        <div class="container">
+            <form action="/components/Factory/products/search" method="post">
+                <div class="row">
+                    <div class="col">
+                        <p>Escribe el nombre o abreviacion de un producto, o su id</p>
+                        <div class="form-group">
+                            <input type="text" name="search" class="form-control">
+                            <div class="mt-3">
+                                <p>Si en el buscador dejas en blanco, traera todos los productos</p>
+                            </div>
+                            <div class="mt-3">
+                                <p><%= recentSearch%></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p>Activa la casilla para ver clientes inactivos</p>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                        <%if (buttonBox==0){%>
+                                            <input class="form-check-input" type="checkbox"  name="desactiveProducts" value="0">
+                                        <%}else{%>
+                                            <input class="form-check-input" type="checkbox"  name="desactiveProducts" value="0" checked="">
+                                        <%}%>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">
+                            Buscar
+                        </button>
+                        <a href="/components/Factory/products" class="class btn btn-danger">Borrar filtros</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <%if(note!=undefined){%>
+        <div class="contianer mt-2 ml-2">
+            <h6><%=note%></h6>
+        </div>
+    <%}%>
+    <!-- Listado de productos -->
+    <div class="container-md-screen mt-3">
+        <%if(arrayFamily[0]!=undefined){%>
+            <%for(var i=0; i < arrayFamily.length; i++){%>
+                <hr>
+                <h4>Familia: <%= arrayFamily[i].familyProduct.nameFamily%></h4>
+                <%if(arrayFamily[i].Product[0]==undefined){%>
+                    <p>No hay un productos asignados a esta familia</p>
+                <%}else{%>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE DE PRODUCTO</th>
+                                <th>ABREVIACION DE PRODUCTO</th>
+                                <th>¿ESTA EN RUTA?</th>
+                                <th>PRECIO</th>
+                                <th>MODIFICAR</th>
+                                <th>ELIMINAR</th>
+                                <th>REACTIVAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var j=0; j < arrayFamily[i].Product.length; j++){%>
+                                <tr>
+                                    <td><%=arrayFamily[i].Product[j].product.idProduct%></td>
+                                    <td><%=arrayFamily[i].Product[j].product.nameProduct%></td>
+                                    <td><%=arrayFamily[i].Product[j].product.abbreviationProduct%></td>
+                                    <td>
+                                        <%if(arrayFamily[i].Product[j].product.productInRoute==1){%>
+                                        Si
+                                        <%}%>
+                                    </td>
+                                    <td><%=arrayFamily[i].Product[j].product.price%></td>
+                                    <%if(arrayFamily[i].Product[j].product.statusProduct==1){%>
+                                        <td><a href="/components/Factory/products/modify/<%=arrayFamily[i].Product[j].product.idProduct%>" class="btn btn-primary btn-sm">MODIFICAR</a></td>
+                                        <td><a href="/components/Factory/products/desactiveProduct/<%=arrayFamily[i].Product[j].product.idProduct%>" class="btn btn-danger btn-sm">DESACTIVAR</a></td>
+                                        <td></td>
+                                    <%}else{%>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a href="/components/Factory/products/reactiveProduct/<%=arrayFamily[i].Product[j].product.idProduct%>" class="btn btn-success btn-sm">REACTIVAR</a></td>
+                                    <%}%>
+                                </tr>   
+                            <%}%>
+                        </tbody>
+                    </table>
+                <%}%>
+            <%}%>
+        <%}else{%>
+            <div class="col mt-4 ml-2">
+                <h5><%=message%></h5>
+            </div>
+        <%}%>
+        </div>
+<%- include ('../../partials/_footer') %>

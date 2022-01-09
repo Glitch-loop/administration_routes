@@ -1,0 +1,60 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/route">Menu posiciones de rutas</a>
+        </div>
+    </div>
+</nav>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <%if(drivers[0]!=undefined){%>
+                <form action="/components/Routes/route/newRoute/addNewRoute" method="post">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Conductores disponibles*</th>
+                                <th>Nombre de ruta*</th>
+                                <th>Caja*</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control" name="idDriver">
+                                            <option value="<%=drivers[0].driver.idDriver%>"><%=drivers[0].driver.nameDriver%></option>
+                                            <%for(var i=1; i < drivers.length; i++){%>
+                                                <option value="<%=drivers[i].driver.idDriver%>"><%=drivers[i].driver.nameDriver%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name="nameRoute" class="form-control">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name="moneyBox" class="form-control">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                </form>
+            <%}%>
+            <%if(message!=undefined){%>
+                <div class="contianer mt-3 ml-3">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

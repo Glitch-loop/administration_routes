@@ -1,0 +1,51 @@
+<%- include ('../../../partials/_header') %>
+<div class="container">
+    <div class="card">
+        <div lass="card-body">
+            <div class="">
+                <h5>Informacion de cliente</h5>
+                <p>Id de cliente: <%=clients.idClient%></p>
+                <p>Nombre de cliente: <%=clients.nameStore%></p>
+                <p>Direccion: <%=clients.street%> <%=clients.adressNumber%>, <%=clients.colony%></p>
+                <hr>
+                <h5>Posicion actual</h5>
+                <p>Ruta:  <%=clients.nameRoute%></p>
+                <p>Dia: <%=clients.nameDay%></p>
+                <p>Posicion: <%=clients.positionRouteDay%></p>
+                <hr>
+                <h5>Selecciona la posicion donde estara el cliente</h5>
+                <form action="/components/Routes/route/viewAllPosition/modify" method="post">
+                    <input type="hidden" name="idPosition" class="form-control" value="<%= clients.idPosition%>">
+                    <input type="hidden" name="idClient" class="form-control" value="<%= clients.idClient%>">
+                    <div class="form-group">
+                        <select class="form-control" name="idRoute">
+                            <option value="<%=clients.idRoute%>"><%=clients.nameRoute%></option>
+                            <%for(var i=0; i < routes.length; i++){%>
+                                <%if(routes[i].route.idRoute!=clients.idRoute){%>
+                                    <option value="<%=routes[i].route.idRoute%>"><%=routes[i].route.nameRoute%></option>
+                                <%}%>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="idDay">
+                            <option value="<%=clients.idDay%>"><%=clients.nameDay%></option>
+                            <%for(var i=0; i < days.length; i++){%>
+                                <%if(days[i].id!=clients.idDay){%>
+                                    <option value="<%=days[i].id%>"><%=days[i].day%></option>
+                                <%}%>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="position" placeholder="Posicion">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Modificar posicion
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('../../../partials/_footer') %>

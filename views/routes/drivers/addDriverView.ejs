@@ -1,0 +1,98 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes">Menu rutas</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/modifyDriverView">Administrar conductores</a>
+        </div>
+    </div>
+</nav>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <form action="/components/Routes/addDriverView/addDriver" method="post">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre del conductor*</th>
+                            <th>Direccion de residencia*</th>
+                            <th>Comision*</th>
+                            <th>Salario (quincenal)*</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="nameDriver" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="adress" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="comission" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="salary" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-hover mt-3">
+                    <thead>
+                        <tr>
+                            <th>Numero de celular*</th>
+                            <th>Correo electronico</th>
+                            <th>Dia de contratacion*</th>
+                            <th>Hora de contratacion*</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="phoneNumber" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="email" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="date" name="hiringDay" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="time" name="hiringDayTime" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </form>
+            <%if(message!=undefined){%>
+                <div class="contianer mt-2 ml-2">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

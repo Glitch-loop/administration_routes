@@ -1,0 +1,203 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/salesProduct/modifySaleProduct">Administrar venta</a>
+        </div>
+    </div>
+</nav>
+<%if(data!=undefined){%>
+    <hr>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5>Resultado de la busqueda: </h5>
+                    <h6>Nombre de ruta: <%=data.routesPosition.route.nameRoute%></h6>
+                    <h6>Fecha: <%=data.date%></h6>
+                    <h6>Dia: <%=data.nameDay%></h6>
+                </div>
+                <div class="col">
+                    <form action="/components/Routes/salesProduct/modifySaleProduct/delete" method="post">
+                        <input type="text" value="<%=data.idRoute%>" name="idRoute" hidden>
+                        <input type="text" value="<%=data.date%>" name="date" hidden>
+                        <div class="">
+                            <button type="submit" class="btn btn-danger">ELIMINAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Esta tabla imprime la venta de los productos en ruta -->
+            <div class="mt-5">
+                <h6>Venta (productos en ruta)</h6>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Posicion</th>
+                            <th>ID cliente</th>
+                            <th>Cliente</th>
+                            <th>Direccion</th>
+                            <%for(var i=0; i < data.productsInRoute.length; i++){%>
+                                <%if(data.productsInRoute[i].product.abbreviationProduct==null || data.productsInRoute[i].product.abbreviationProduct==''){%>
+                                    <th><%=data.productsInRoute[i].product.nameProduct%></th>
+                                <%}else{%>
+                                    <th><%=data.productsInRoute[i].product.abbreviationProduct%></th>
+                                <%}%>
+                            <%}%>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- For para recorrer los clientes -->
+                        <%for(var i=0; i < data.routesPosition.arrayPositionInRoute[0].position.length; i++){%>
+                            <tr>
+                                <!-- Primero ponemos los datos del cliente -->
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].positionRouteDay%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].idClient%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].nameStore%></td>
+                                <td>
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].street%> 
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].adressNumber%>,
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].colony%>
+                                </td>
+                                <!-- Recorre todos los productos -->
+                                <%for(var k=0; k < data.productsInRoute.length; k++){%>
+                                    <%var aux=0%>
+                                    <%var position=0%>
+                                    <!-- Recorre todas las ventas -->
+                                    <%for(var j=0; j < data.arraySale.length; j++){%>
+                                        <%if((data.arraySale[j].saleProduct.idClient==data.routesPosition.arrayPositionInRoute[0].position[i].idClient)&&(data.arraySale[j].saleProduct.idProduct==data.productsInRoute[k].product.idProduct)){%>
+                                            <%aux=1%>
+                                            <%position=j%>
+                                            <%break%>
+                                        <%}%>
+                                    <%}%>
+                                    <%if(aux==1){%>
+                                        <td><%=data.arraySale[position].saleProduct.quantityProduct%></td>
+                                    <%}else{%>
+                                        <td></td>
+                                    <%}%>
+                                <%}%>
+                            </tr>   
+                        <%}%>
+                    </tbody>
+                </table>    
+            </div>
+            <!-- Esta tabla imprime la merma de los productos en ruta -->
+            <div class="mt-5">
+                <h6>Merma (productos en ruta)</h6>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Posicion</th>
+                            <th>ID cliente</th>
+                            <th>Cliente</th>
+                            <th>Direccion</th>
+                            <%for(var i=0; i < data.productsInRoute.length; i++){%>
+                                <%if(data.productsInRoute[i].product.abbreviationProduct==null || data.productsInRoute[i].product.abbreviationProduct==''){%>
+                                    <th><%=data.productsInRoute[i].product.nameProduct%></th>
+                                <%}else{%>
+                                    <th><%=data.productsInRoute[i].product.abbreviationProduct%></th>
+                                <%}%>
+                            <%}%>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- For para recorrer los clientes -->
+                        <%for(var i=0; i < data.routesPosition.arrayPositionInRoute[0].position.length; i++){%>
+                            <tr>
+                                <!-- Primero ponemos los datos del cliente -->
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].positionRouteDay%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].idClient%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].nameStore%></td>
+                                <td>
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].street%> 
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].adressNumber%>,
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].colony%>
+                                </td>
+                                <!-- Recorre todos los productos -->
+                                <%for(var k=0; k < data.productsInRoute.length; k++){%>
+                                    <%var aux=0%>
+                                    <%var position=0%>
+                                    <!-- Recorre todas las ventas -->
+                                    <%for(var j=0; j < data.arrayLoss.length; j++){%>
+                                        <%if((data.arrayLoss[j].lossProduct.idClient==data.routesPosition.arrayPositionInRoute[0].position[i].idClient)&&(data.arrayLoss[j].lossProduct.idProduct==data.productsInRoute[k].product.idProduct)){%>
+                                            <%aux=1%>
+                                            <%position=j%>
+                                            <%break%>
+                                        <%}%>
+                                    <%}%>
+                                    <%if(aux==1){%>
+                                        <td><%=data.arrayLoss[position].lossProduct.quantityProduct%></td>
+                                    <%}else{%>
+                                        <td></td>
+                                    <%}%>
+                                <%}%>
+                            </tr>   
+                        <%}%>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Esta tabla imprime la merma de los productos en ruta -->
+            <div class="mt-5">
+                <h6>Venta (productos en ruta)</h6>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Posicion</th>
+                            <th>ID cliente</th>
+                            <th>Cliente</th>
+                            <th>Direccion</th>
+                            <%for(var i=0; i < data.productsNotInRoute.length; i++){%>
+                                <%for(var j=0; j < data.productsNotInRoute[i].Product.length; j++){%>
+                                    <%if(data.productsNotInRoute[i].Product[j].product.abbreviationProduct==null || data.productsNotInRoute[i].Product[j].product.abbreviationProduct==''){%>
+                                        <th><%=data.productsNotInRoute[i].Product[j].product.nameProduct%></th>
+                                    <%}else{%>
+                                        <th><%=data.productsNotInRoute[i].Product[j].product.abbreviationProduct%></th>
+                                    <%}%>
+                                <%}%>
+                            <%}%>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- For para recorrer los clientes -->
+                        <%for(var i=0; i < data.routesPosition.arrayPositionInRoute[0].position.length; i++){%>
+                            <tr>
+                                <!-- Primero ponemos los datos del cliente -->
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].positionRouteDay%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].idClient%></td>
+                                <td><%=data.routesPosition.arrayPositionInRoute[0].position[i].nameStore%></td>
+                                <td>
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].street%> 
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].adressNumber%>,
+                                    <%=data.routesPosition.arrayPositionInRoute[0].position[i].colony%>
+                                </td>
+                                <!-- Recorre todas las familias -->
+                                <%for(var j=0; j < data.productsNotInRoute.length; j++){%>
+                                    <!-- Recorre todas las productos dentro de familias -->
+                                    <%for(var k=0; k < data.productsNotInRoute[j].Product.length; k++){%>
+                                        <%var aux=0%>
+                                        <%var position=0%>
+                                        <%for(var m=0; m < data.arraySale.length; m++){%>
+                                        <!-- Recorre todos los productos -->
+                                            <%if((data.arraySale[m].saleProduct.idClient==data.routesPosition.arrayPositionInRoute[0].position[i].idClient) && (data.arraySale[m].saleProduct.idProduct==data.productsNotInRoute[j].Product[k].product.idProduct)){%>
+                                                <%aux=1%>
+                                                <%position=m%>
+                                                <%break%>
+                                            <%}%>
+                                        <%}%>
+                                        <%if(aux==1){%>
+                                            <td><%=data.arraySale[position].saleProduct.quantityProduct%></td>
+                                        <%}else{%>
+                                            <td></td>
+                                        <%}%>
+                                    <%}%>
+                                <%}%>
+                            </tr>   
+                        <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<%}%>
+<%- include ('../../partials/_footer') %>

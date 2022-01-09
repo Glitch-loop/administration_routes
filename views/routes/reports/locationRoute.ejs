@@ -1,0 +1,52 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/reports">Menu reportes</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body">
+            <p>Genera un mapa de las posiciones de un dia de una ruta especifica</p>
+            <%if(routes[0]!=undefined){%>
+                <form action="/components/Routes/reports/location" method="post">
+                    <div class="mt-3">
+                        <h6>Ruta</h6>
+                        <div class="form-group">
+                            <select class="form-control" name="idRoute">
+                                <%for(var i=0; i < routes.length; i++){%>
+                                    <option value="<%=routes[i].route.idRoute%>">
+                                        <%=routes[i].route.nameRoute%>
+                                    </option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Dia de venta</h6>
+                        <div class="form-group">
+                            <select class="form-control" name="idDay">
+                                <%for(var i=0; i < days.length; i++){%>
+                                    <option value="<%=days[i].id%>">
+                                        <%=days[i].day%>
+                                    </option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">CREAR EXCEL</button> 
+                    </div>
+                </form>
+            <%}%>
+            <%if(messageorDownload!=undefined){%>
+                <div class="mt-3">
+                    <%=messageorDownload%>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

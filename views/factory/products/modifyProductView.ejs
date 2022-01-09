@@ -1,0 +1,71 @@
+<%- include ('../../partials/_header') %>
+<div class="container">
+    <div class="card">
+        <div lass="card-body">
+            <div class="mt-3">
+                <h5>Informacion del producto</h5>
+                <p>Id del producto: <%=product[0].Product[0].product.idProduct%></p>
+                <p>Nombre del producto: <%=product[0].Product[0].product.nameProduct%></p>
+                <p>Abreviacion del producto: <%=product[0].Product[0].product.abbreviationProduct%></p>
+                <p>Precio: <%=product[0].Product[0].product.price%></p>
+                <p>Familia a la que pertenece: <%=product[0].familyProduct.nameFamily%></p>
+                <p>Stock: <%=product[0].Product[0].product.stockFabric%></p>
+                <p>Costo de producto: <%=product[0].Product[0].product.costProduct%></p>
+                <p>Ultima modificacion: <%=product[0].Product[0].product.lastModification%></p>
+                <hr>
+                <h5>Ingresa los datos para modificar el producto</h5>
+                <p><%=message%></p>
+                <form action="/components/Factory/products/modify/product" method="post">
+                    <div class="form-group">
+                        <input type="hidden" name="idProduct" class="form-control" value="<%=product[0].Product[0].product.idProduct%>">
+                        <p>Nombre del producto</p>
+                        <input type="text" name="nameProduct" class="form-control">
+                        <p>Abreviacion del producto</p>
+                        <input type="text" name="abbreviationProduct" class="form-control">
+                        <p>Precio del producto</p>
+                        <input type="text" name="price" class="form-control">
+                        <p>Familia de productos</p>
+                        <div class="form-group">
+                            <select class="form-control" name="idProductsFamily">
+                                <option value="<%=product[0].familyProduct.idProductsFamily%>">
+                                    <%=product[0].familyProduct.nameFamily%>
+                                </option>
+                                <%if(product[0].familyProduct.idProductsFamily!=null){%>
+                                    <option value="null">
+                                        Ninguna
+                                    </option>
+                                <%}%>
+                                <%for(var i=0; i < productFamily.length; i++){%>
+                                    <%if(product[0].familyProduct.idProductsFamily!=productFamily[i].familyProduct.idProductsFamily){%>
+                                        <option value="<%=productFamily[i].familyProduct.idProductsFamily%>">
+                                            <%=productFamily[i].familyProduct.nameFamily%>
+                                        </option>
+                                    <%}%>
+                                <%}%>
+                            </select>
+                        </div>
+                        <p>Stock en fabrica</p>
+                        <input type="text" name="stockFabric" class="form-control">
+                        <p>Costo de producto</p>
+                        <input type="text" name="costProduct" class="form-control">
+                        <p>¿El producto estara en ruta?</p>
+                        <div class="form-group ml-4">    
+                            <label class="form-check-label">
+                                <%if(product[0].Product[0].product.productInRoute==1){%>
+                                    <input class="form-check-input" type="checkbox"  name="productInRoute" value="0" checked="">
+                                <%}else{%>
+                                    <input class="form-check-input" type="checkbox"  name="productInRoute" value="0" >
+                                <%}%>
+                                Activar en caso de "Si"
+                            </label>        
+                        </div>                    
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Modificar posicion
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

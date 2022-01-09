@@ -1,0 +1,98 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes">Menu rutas</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/modifyClientView">Administrar clientes</a>
+        </div>
+    </div>
+</nav>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <form action="/components/Routes/addClient" method="post">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre tienda*</th>
+                            <th>Calle*</th>
+                            <th>Numero de direccion*</th>
+                            <th>Colonia*</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="nameStore" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="street" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="adressNumber" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="colony" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-hover mt-3">
+                    <thead>
+                        <tr>
+                            <th>Latitud</th>
+                            <th>Longitud</th>
+                            <th>Nombre completo del administrador</th>
+                            <th>Contacto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="latitude" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="longitude" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="nameClient" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="contactClient" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </form> 
+            <%if(message!=undefined){%>
+                <div class="contianer mt-2 ml-2">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

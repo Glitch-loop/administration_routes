@@ -1,0 +1,104 @@
+<%- include ('../../partials/_header') %>
+<!-- Menu para el manejo de productos y familias -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <div class="">
+                <a href="/components/Factory/products">Menu de productos</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <form action="/components/Factory/products/AddNewProduct" method="post">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre del producto*</th>
+                            <th>Abreviacion del producto</th>
+                            <th>Precio*</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="nameProduct" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="abbreviationProduct" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="price" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" name="stockFabric" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered table-hover mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Costo de producto</th>
+                                    <th>Familia</th>
+                                    <th>¿El producto estara en ruta?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" name="costProduct" class="form-control">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <%if(family!=undefined){%>
+                                        <select class="form-control" name="idProductsFamily">
+                                            <option value="0">Ninguna</option>
+                                            <%for(var i=0; i < family.length; i++){%>
+                                                <option value="<%=family[i].familyProduct.idProductsFamily%>"><%=family[i].familyProduct.nameFamily%></option>
+                                            <%}%>
+                                        </select>
+                                        <%}else{%>
+                                            <p>No hay familias disponibles para seleccionar</p>
+                                        <%}%>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">    
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"  name="productInRoute" value="0" >
+                                                Activar en caso de "Si"
+                                            </label>        
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </form>
+            <%if (message!=undefined){%>
+                <div class="mt-3 ml-2">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

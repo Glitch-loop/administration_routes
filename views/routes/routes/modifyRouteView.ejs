@@ -1,0 +1,79 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/route">Menu posiciones de rutas</a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <form action="/components/Routes/route/searchRoute" method="post">
+            <div class="row">
+                <div class="col">
+                    <p>Activa la casilla para ver rutas inactivas</p>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                    <%if (buttonBox==0){%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedRoute" value="0">
+                                    <%}else{%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedRoute" value="1" checked="">
+                                    <%}%>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+<%if(message!=undefined){%>
+    <div class="contianer mt-4 ml-4">
+        <p><%=message%></p>
+    </div>
+<%}%>
+<%if(data[0]!=undefined){%>
+    <div class="container-md-screen mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE DE RUTA</th>
+                    <th>CONDUCTOR ENCARGADO</th>
+                    <th>CAJA</th>
+                    <th>MODIFICAR</th>
+                    <th>ELIMINAR</th>
+                    <%if (buttonBox!=0){%>
+                        <th>REACTIVAR CLIENTE</th>                
+                    <%}%>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(var i=0; i < data.length; i++){%>
+                <tr>
+                    <td><%= data[i].route.idRoute%></td>
+                    <td><%= data[i].route.nameRoute%></td>
+                    <td><%= data[i].route.nameDriver%></td>
+                    <td><%= data[i].route.moneyBox%></td>
+                    <%if (data[i].route.routeStatus==1){%>
+                        <td><a href="/components/Routes/route/modifyRoute/update/<%= data[i].route.idRoute%>" class="btn btn-primary btn-sm">MODIFICAR</a></td>
+                        <td><a href="/components/Routes/route/modifyRoute/desactivate/<%= data[i].route.idRoute%>" class="btn btn-danger btn-sm">ELIMINAR</a></td>
+                        <td></td>
+                    <%}else{%>
+                        <td></td>
+                        <td></td>
+                        <td><a href="/components/Routes/route/modifyRoute/reactivate/<%= data[i].route.idRoute%>" class=" btn btn-success btn-sm">REACTIVAR</a></td>
+                    <%}%>
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+<%}%>
+<%- include ('../../partials/_footer') %>

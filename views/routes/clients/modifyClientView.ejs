@@ -1,0 +1,94 @@
+<%- include ('../../partials/_header') %>
+<!-- Regreso a la vista de agregar clientes -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <div class="">
+                <a href="/components/Routes/addClientView">Agregar nuevos clientes</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <form action="/components/Routes/searchSpecifyClient" method="post">
+            <div class="row">
+                <div class="col">
+                    <p>Escribe el nombre de un cliente o su id</p>
+                    <div class="form-group">
+                        <input type="text" name="search" class="form-control">
+                        <%if(recentSearch!=undefined){%>
+                            <div class="contianer mt-2 ml-2">
+                                <p><%=recentSearch%></p>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="col">
+                    <p>Activa la casilla para ver clientes inactivos</p>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                    <%if (buttonBox==0){%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedClient" value="0">
+                                    <%}else{%>
+                                        <input class="form-check-input" type="checkbox"  name="desactivedClient" value="1" checked="">
+                                    <%}%>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+<%if (data==undefined){%>
+    <div class="mt-3 ml-3">
+        <p>No a seleccionado parametros para buscar</p>
+    </div>
+<%}else{%>
+    <div class="container mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>DIRECCION</th>
+                    <th>MODIFICAR</th>
+                    <th>ELIMINAR</th>
+                    <%if (buttonBox!=0){%>
+                        <th>REACTIVAR CLIENTE</th>                
+                    <%}%>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(var i=0; i < data.length; i++){%>
+                <tr>
+                    <td><%= data[i].idClient%></td>
+                    <td><%= data[i].nameStore%></td>
+                    <td>
+                        <%= data[i].street%> 
+                        <%= data[i].adressNumber%>, 
+                        <%= data[i].colony%>
+                    </td>
+                    <%if (data[i].clientStatus==1){%>
+                        <td><a href="/components/Routes/searchSpecifyClient/update/<%= data[i].idClient%>" class="btn btn-primary btn-sm">MODIFICAR</a></td>
+                        <td><a href="/components/Routes/searchSpecifyClient/desactivate/<%= data[i].idClient%>" class="btn btn-danger btn-sm">ELIMINAR</a></td>
+                        <td></td>
+                    <%}else{%>
+                        <td></td>
+                        <td></td>
+                        <td><a href="/components/Routes/searchSpecifyClient/reactivate/<%= data[i].idClient%>" class=" btn btn-success btn-sm">REACTIVAR</a></td>
+                    <%}%>
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+<%}%>
+<%- include ('../../partials/_footer') %>

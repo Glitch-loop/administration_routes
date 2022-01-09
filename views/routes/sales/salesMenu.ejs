@@ -1,0 +1,125 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/">Menu rutas</a>
+        </div>
+        <div class="">
+            <a href="/components/Routes/salesProduct/printDayOfRoute">Imprimir dia para ruta</a>
+        </div>
+        <div class="">
+            <a href="/components/Routes/salesProduct/modifySaleProduct">Administrar venta</a>
+        </div>
+    </div>
+</nav>
+<div class="col mt-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5>Agregar nueva venta</h5>
+                    <%if(routes[0]!=undefined){%>
+                        <form action="/components/Routes/salesProduct/addSaleProduct" method="post">
+                            <h6>Ruta</h6>
+                            <div class="form-group">
+                                <select class="form-control" name="idRoute">
+                                    <%for(var i=0; i < routes.length; i++){%>
+                                        <option value="<%=routes[i].route.idRoute%>">
+                                            <%=routes[i].route.nameRoute%>
+                                        </option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <h6>Dia de venta</h6>
+                            <input type="date" name="dateSale" class="form-control">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Crear archivo excel</button>
+                            </div>
+                        </form>
+                    <%}%>
+                    <%if(download!=undefined){%>
+                        <div class="contianer mt-3">
+                            <a href="/components/Routes/salesProduct/addSaleProduct" class="btn btn-info">Descargar Excel</a>
+                        </div>
+                        <div class="contianer mt-4">
+                            <form action="/components/Routes/salesProduct/addSaleProduct/woorbook" method="post" enctype="multipart/form-data">
+                                <input type="file" name="workbook">
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-success">Subir archivo excel</button>
+                                </div>
+                            </form>
+                        </div>
+                    <%}%>
+                    <%if(downloadDeletePosition!=undefined){%>
+                        <div class="contianer mt-3">
+                            <a href="/components/Routes/salesProduct/addSaleProduct/woorbook/deletedPosition" class="btn btn-info">Descargar reporte de posiciones eliminadas (Excel)</a>
+                        </div>
+                    <%}%>
+                    <%if(message!=undefined){%>
+                        <div class="contianer mt-2 ml-2">
+                            <p><%=message%></p>
+                        </div>
+                    <%}%>
+                </div>    
+                <div class="col">
+                    <h5>Parametros para el control de rutas automatico</h5>
+                    <%if(enviromentVariable==undefined){%>
+                        <h6>
+                            Actualmente no ha registrado parametros para poder evaluar a los clientes,
+                            registralos para poder "activar" el control automatico  
+                        </h6>
+                    <%}else{%>
+                        <h6>Parametros actuales</h6>
+                        <p>Eliminar a las "veces que no compren": <%=enviromentVariable.timeNotBuy%></p>
+                        <p>Eliminar a la "cantidad de compra" menor a: $<%=enviromentVariable.monetaryBuy%></p>
+                        <h6>
+                            Actualmente se encuentra activado: 
+                            <%if(enviromentVariable.activateSetEnviromentVariable==1){%>
+                                Si
+                            <%}else{%>
+                                No
+                            <%}%>
+                        </h6>
+                    <%}%>
+                    <hr>
+                    <form action="/components/Routes/salesProduct/enviromentVariable" method="post">
+                        <div class="col">
+                            <p>Veces que no compren</p>
+                            <input type="number" class="form-control" name="timeNotBuy">
+                            <div class="mt-2">
+                                <p>Cantidad de compra ($)</p>
+                                <input type="number" class="form-control" name="monetaryBuy">
+                            </div>
+                            <%if(enviromentVariable!=undefined){%>
+                                <%if(enviromentVariable.activateSetEnviromentVariable==0){%>
+                                    <div class="mt-2 ml-3">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox"  name="activateSetEnviromentVariable" value="0">
+                                            <p>Da click en la casilla para activar control automatico</p>
+                                        </label>
+                                    </div>   
+                                <%}else{%>
+                                    <div class="mt-2 ml-3">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox"  name="activateSetEnviromentVariable" value="0" checked>
+                                            <p>Da click en la casilla para desactivar control automatico</p>
+                                        </label>
+                                    </div>   
+                                <%}%>
+                            <%}%>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <%if(messageFilter!=undefined){%>
+                        <div class="contianer mt-2 ml-2">
+                            <p><%=messageFilter%></p>
+                        </div>
+                    <%}%>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

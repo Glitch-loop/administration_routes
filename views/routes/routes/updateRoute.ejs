@@ -1,0 +1,40 @@
+<%- include ('../../partials/_header') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5>Informacion actual de esta ruta</h5>
+                <p>ID unico de ruta: <%= route.idDriver%></p>
+                <p>Nombre de la ruta: <%= route.nameRoute%></p>
+                <p>Conductor encargado: <%= route.nameDriver%></p>
+                <p>Caja: <%= route.moneyBox%></p>
+                <p>Ultima modificaion: <%= route.lastModification%></p>
+                <hr>
+                <form action="/components/Routes/route/modifyRoute/update" method="post">
+                    <input type="hidden" name="idRoute" class="form-control" value="<%= route.idRoute%>">
+                    <h6>Conductor encargado</h6>
+                    <div class="form-group">
+                        <select class="form-control" name="idDriver">
+                            <option value="<%=route.idDriver%>"><%=route.nameDriver%></option>
+                            <%for(var i=0; i < drivers.length; i++){%>
+                                <%if(route.idDriver!=drivers[i].driver.idDriver){%>
+                                    <option value="<%=drivers[i].driver.idDriver%>"><%=drivers[i].driver.nameDriver%></option>
+                                <%}%>
+                            <%}%>
+                        </select>
+                    </div>
+                    <h6>Nombre de la ruta</h6>
+                    <div class="form-group">
+                        <input type="text" name="nameRoute" class="form-control">
+                    </div>
+                    <h6>Caja</h6>
+                    <div class="form-group">
+                        <input type="text" name="moneyBox" class="form-control">
+                    </div>
+                    <div type="submit" class="form-group">
+                        <button class="btn btn-primary">Actualizar</button>
+                    </div>                  
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include ('../../partials/_footer') %>

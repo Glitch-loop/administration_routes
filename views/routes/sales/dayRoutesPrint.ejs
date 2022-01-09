@@ -1,0 +1,49 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/salesProduct">Menu ventas</a>
+        </div>
+    </div>
+</nav>
+<div class="card">
+    <div class="card-body">
+        <div class="mt-3">
+            <h6>Escoge la ruta y el dia para generar un nuevo archivo</h6>
+        </div>
+        <div class="form-group mt-3">
+            <%if(routes[0]!=undefined){%>
+                <form action="/components/Routes/salesProduct/printDayOfRoute" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" name="idRoute">
+                                <%for(var i=0; i < routes.length; i++){%>
+                                    <option value="<%=routes[i].route.idRoute%>">
+                                        <%=routes[i].route.nameRoute%>
+                                    </option>
+                                <%}%>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="date" name="dateSale" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Crear archivo excel</button>
+                    </div>
+                </form>
+            <%}%>
+            <%if(downloadPrintDay!=undefined){%>
+                <div class="contianer mt-3">
+                    <a href="/components/Routes/salesProduct/printDayOfRoute/download" class="btn btn-success">Descargar Excel</a>
+                </div>
+            <%}%>
+            <%if(message!=undefined){%>
+                <div class="contianer mt-2 ml-2">
+                    <p><%=message%></p>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

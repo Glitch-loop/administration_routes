@@ -1,0 +1,52 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/reports">Menu reportes</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body">
+            <p>Genera un reporte de mermas y ventas (en termino monetario) de los clientes</p>
+            <div class="mt-3">
+                <form action="/components/Routes/reports/clientState" method="post">
+                    <h6>Desde:</h6>
+                    <div class="mt-3">
+                        <input type="date" name="sinceDate" class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <h6>Hasta:</h6>
+                        <input type="date" name="untilDate" class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <p>
+                            Los siguientes recuadros sirven para poner un limite a la busqueda de clientes, en caso de 
+                            estar vacios se traeran a todos los clientes
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-3">
+                            <p>Numero de clientes que desea ver (tanto para mayor y menor venta)</p>
+                            <input type="number" min="0" name="limitSale" class="form-control">
+                        </div>
+                        <div class="col mt-3">
+                            <p>Numero de clientes que desea ver (tanto para mayor y menor generacion de merma)</p>
+                            <input type="number" min="0" name="limitLoss" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">CREAR EXCEL</button> 
+                    </div>
+                </form>
+                <%if(messageorDownload!=undefined){%>
+                    <div class="mt-3">
+                        <%=messageorDownload%>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

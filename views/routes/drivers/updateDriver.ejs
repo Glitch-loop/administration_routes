@@ -1,0 +1,57 @@
+<%- include ('../../partials/_header') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5>Informacion actual de este conductor</h5>
+                <p>ID unico de conductor: <%= data.idDriver%></p>
+                <p>Nombre del conductor: <%= data.nameDriver%></p>
+                <p>Fecha de contratacion: <%= data.hiringDay%></p>
+                <p>Direcccion: <%= data.adress%></p>
+                <p>Numero: <%= data.phoneNumber%></p>
+                <p>Email: <%= data.email%></p>
+                <p>Comsion: <%= data.comission%></p>
+                <p>Salario (quincenal): <%= data.salary%></p>
+                <p>Ultima modificaion: <%= data.lastModification%></p>
+                <hr>
+                <form action="/components/Routes/modifyDriverView/update" method="post">
+                    <input type="hidden" name="idDriver" class="form-control" value="<%= data.idDriver%>">
+                    <h6>Nombre del conductor</h6>
+                    <div class="form-group">
+                        <input type="text" name="nameDriver" class="form-control">
+                    </div>
+                    <h6>Fecha de contratacion</h6>
+                    <div class="form-group">
+                        <input type="date" name="hiringDay" class="form-control">
+                    </div>
+                    <h6>Hora de contratacion</h6>
+                    <div class="form-group">
+                        <input type="time" name="hiringDayTime" class="form-control">
+                    </div>
+                    <h6>Direccion</h6>
+                    <div class="form-group">
+                        <input type="text" name="adress" class="form-control">
+                    </div>
+                    <h6>Numero</h6>
+                    <div class="form-group">
+                        <input type="text" name="phoneNumber" class="form-control">
+                    </div>
+                    <h6>E-mail</h6>
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <h6>Comsion</h6>
+                    <div class="form-group">
+                        <input type="text" name="comission" class="form-control">
+                    </div>
+                    <h6>Salario (quincenal)</h6>
+                    <div class="form-group">
+                        <input type="text" name="salary" class="form-control">
+                    </div>
+                    <div type="submit" class="form-group">
+                        <button class="btn btn-primary">Actualizar</button>
+                    </div>                  
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include ('../../partials/_footer') %>

@@ -1,0 +1,226 @@
+<%- include ('../../partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/">Menu rutas</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/route/newRoute">Agregar rutas</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/route/modifyRoute">Modificar rutas</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <a href="/components/Routes/route/viewAllPosition/addPosition">Agregar posiciones</a>
+        </div>
+    </div>
+</nav>
+<div class="col-md-screen tp-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="">
+                <%if(clients!=undefined){%>
+                    <h5>Clientes pendientes de asignar a una ruta</h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE DE TIENDA</th>
+                                <th>DIRECCION</th>
+                                <th>ASIGNAR POSICION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i=0; i < clients.length; i++){%>
+                                <tr>
+                                    <td><%=clients[i].client.idClient%></td>
+                                    <td><%=clients[i].client.nameStore%></td>
+                                    <td>
+                                        <%=clients[i].client.street%> 
+                                        <%=clients[i].client.adressNumber%>,
+                                        <%=clients[i].client.colony%>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <a href="/components/Routes/route/addNewPosition/<%=clients[i].client.idClient%>" class="btn btn-primary btn-sm">ASIGNAR</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <%}%>    
+                        </tbody>
+                    </table>
+                <%}%>
+                <hr>
+                <!-- Consulta de rutas -->
+                <!-- Aqui seleccionamos los datos que queremos consultar -->
+                <div class="col-md-screen mt-3">
+                    <div class="">
+                        <h5>Administracion de rutas</h5>
+                    </div>
+                    <form action="/components/Routes/route/viewAllPosition" method="post">
+                        <div class="container d-flex jusify-conent-center align-items center">
+                            <div class="col-md-flex">
+                                <p>Rutas</p>
+                                <%for(var i=0; i < routes.length; i++){%>
+                                    <%if(queryRoutes!=undefined){%>
+                                        <%var verify = 0%>  
+                                        <%for(var j=0; j < queryRoutes.idRoute.length; j++){%>
+                                            <%if(queryRoutes.idRoute[j]==routes[i].route.idRoute){%>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox"  name="idRoute" value="<%=routes[i].route.idRoute%>" checked="">
+                                                        <%=routes[i].route.nameRoute%>
+                                                    </label>
+                                                </div>   
+                                                <%verify = 1%>                       
+                                            <%}%>
+                                        <%}%>
+                                        <%if(verify==0){%>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"  name="idRoute" value="<%=routes[i].route.idRoute%>">
+                                                    <%=routes[i].route.nameRoute%>
+                                                </label>
+                                            </div>
+                                        <%}%>
+                                    <%}else{%>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox"  name="idRoute" value="<%=routes[i].route.idRoute%>">
+                                                <%=routes[i].route.nameRoute%>
+                                            </label>
+                                        </div>     
+                                    <%}%>
+                                <%}%>
+                                <input class="form-check-input" type="checkbox"  name="idRoute" value="0" checked="" hidden>
+                            </div>
+                            <div class="col-md-flex ml-3">
+                                <div class="col">
+                                    <p>Dia</p>
+                                </div>
+                                <div class="col">
+                                    <%for(var i=0; i < days.length; i++){%>
+                                        <%if(queryRoutes!=undefined){%>
+                                            <%var verify = 0%>  
+                                            <%for(var j=0; j < queryRoutes.idDay.length; j++){%>
+                                                <%if(queryRoutes.idDay[j]==days[i].id){%>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="checkbox"  name="idDay" value="<%=days[i].id%>" checked="">
+                                                            <%=days[i].day%>
+                                                        </label>
+                                                    </div>   
+                                                    <%verify = 1%>                       
+                                                <%}%>
+                                            <%}%>
+                                            <%if(verify==0){%>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox"  name="idDay" value="<%=days[i].id%>">
+                                                        <%=days[i].day%>
+                                                    </label>
+                                                </div>
+                                            <%}%>
+                                        <%}else{%>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"  name="idDay" value="<%=days[i].id%>" >
+                                                    <%=days[i].day%>
+                                                </label>
+                                            </div>     
+                                        <%}%>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-4 mt-3">
+                            <button class="btn btn-primary ">
+                                Filtrar
+                            </button>
+                            <a href="/components/Routes/route/viewAllPosition" class="btn btn-danger">Borrar filtros</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- Imprimimos resultados de la base de datos -->
+                <div class="col-md-screen mt-4">
+                    <%if(data!=undefined){%>
+                        <%for(var i=0; i < data.length; i++){%>
+                            <hr>
+                            <h4><%= data[i].route.nameRoute%></h4>
+                            <%for(var j=0; j < data[i].arrayPositionInRoute.length; j++){%>
+                                <h6>Dia: <%= days[(data[i].arrayPositionInRoute[j].idDay)].day%></h6>
+                                <%if(data[i].arrayPositionInRoute[j].position[0]==undefined){%>
+                                    <p>Aun no existen posiciones</p>
+                                <%}else{%>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Posicion</th>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Direccion</th>
+                                                <th>Modificar</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%for(var k=0; k < data[i].arrayPositionInRoute[j].position.length; k++){%>
+                                                <tr>
+                                                    <td><%=data[i].arrayPositionInRoute[j].position[k].positionRouteDay%></td>
+                                                    <td><%=data[i].arrayPositionInRoute[j].position[k].idClient%></td>
+                                                    <td><%=data[i].arrayPositionInRoute[j].position[k].nameStore%></td>
+                                                    <td>
+                                                        <%=data[i].arrayPositionInRoute[j].position[k].street%> 
+                                                        <%=data[i].arrayPositionInRoute[j].position[k].adressNumber%>, 
+                                                        <%=data[i].arrayPositionInRoute[j].position[k].colony%>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/components/Routes/route/viewAllPosition/modifyView" method="post">
+                                                            <input type="hidden" name="idPosition" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idPosition%>">
+                                                            <input type="hidden" name="idRoute" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idRoute%>">
+                                                            <input type="hidden" name="nameRoute" class="form-control"value="<%=data[i].route.nameRoute%>">
+                                                            <input type="hidden" name="idClient" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idClient%>">
+                                                            <input type="hidden" name="idDay" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idDay%>">
+                                                            <input type="hidden" name="nameDay" class="form-control"value="<%=days[(data[i].arrayPositionInRoute[j].idDay)].day%>">
+                                                            <input type="hidden" name="positionRouteDay" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].positionRouteDay%>">
+                                                            <input type="hidden" name="nameStore" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].nameStore%>">
+                                                            <input type="hidden" name="street" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].street%>">
+                                                            <input type="hidden" name="adressNumber" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].adressNumber%>">
+                                                            <input type="hidden" name="colony" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].colony%>">
+                                                            <button  type="submit" class="btn btn-info">
+                                                                Modificar posicion
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/components/Routes/route/viewAllPosition/delete" method="post">
+                                                            <input type="hidden" name="idPosition" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idPosition%>">
+                                                            <input type="hidden" name="idRoute" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idRoute%>">
+                                                            <input type="hidden" name="idClient" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idClient%>">
+                                                            <input type="hidden" name="idDay" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].idDay%>">
+                                                            <input type="hidden" name="positionRouteDay" class="form-control"value="<%=data[i].arrayPositionInRoute[j].position[k].positionRouteDay%>">
+                                                            <button  type="submit" class="btn btn-danger">
+                                                                Eliminar posicion
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <%}%>
+                                        </tbody>
+                                    </table>
+                                <%}%>
+                            <%}%>
+                        <%}%>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/_footer') %>

@@ -1,0 +1,58 @@
+<%- include ('../../partials/_header') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5>Informacion actual de este cliente</h5>
+                <p>ID unico de cliente: <%= data.idClient%></p>
+                <p>Nombre de la tienda: <%= data.nameStore%></p>
+                <p>Calle: <%= data.street%></p>
+                <p>Numero de direccion: <%= data.adressNumber%></p>
+                <p>Colonia: <%= data.colony%></p>
+                <p>Latitude: <%= data.latitude%></p>
+                <p>Longitude: <%= data.longitude%></p>
+                <p>Encargado de la tienda: <%= data.nameClient%></p>
+                <p>Contacto: <%= data.contactClient%></p>
+                <p>Ultima modificaion: <%= data.lastModification%></p>
+                <hr>
+                <form action="/components/Routes/searchSpecifyClient/update" method="post">
+                    <input type="hidden" name="idClient" class="form-control" value="<%= data.idClient%>">
+                    <h6>Nombre de la tienda</h6>
+                    <div class="form-group">
+                        <input type="text" name="nameStore" class="form-control">
+                    </div>
+                    <h6>Calle</h6>
+                    <div class="form-group">
+                        <input type="text" name="street" class="form-control">
+                    </div>
+                    <h6>Numero de direccion</h6>
+                    <div class="form-group">
+                        <input type="text" name="adressNumber" class="form-control">
+                    </div>
+                    <h6>Colonia</h6>
+                    <div class="form-group">
+                        <input type="text" name="colony" class="form-control">
+                    </div>
+                    <h6>Latitud</h6>
+                    <div class="form-group">
+                        <input type="text" name="latitude" class="form-control">
+                    </div>
+                    <h6>Longitud</h6>
+                    <div class="form-group">
+                        <input type="text" name="longitude" class="form-control">
+                    </div>
+                    <h6>Encargado de la tienda</h6>
+                    <div class="form-group">
+                        <input type="text" name="nameClient" class="form-control">
+                    </div>
+                    <h6>Contacto</h6>
+                    <div class="form-group">
+                        <input type="text" name="contactClient" class="form-control">
+                    </div>  
+                    <div type="sub  mit" class="form-group">
+                        <button class="btn btn-primary">Actualizar</button>
+                    </div>                  
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include ('../../partials/_footer') %>
